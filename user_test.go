@@ -14,26 +14,13 @@ const (
 )
 
 func TestUsers(t *testing.T) {
-	server, client := gapiTestTools(200, getUsersJSON)
-	defer server.Close()
-
-	resp, err := client.Users()
+	resp, err := realClient.Users()
 	if err != nil {
 		t.Error(err)
 	}
 
-	t.Log(pretty.PrettyFormat(resp))
-
-	user := User{
-		Id:      1,
-		Email:   "admin@localhost",
-		Name:    "",
-		Login:   "admin",
-		IsAdmin: true,
-	}
-
-	if len(resp) != 1 || resp[0] != user {
-		t.Error("Not correctly parsing returned users.")
+	if len(resp) == 0 {
+		t.Error("Users should not be empty.")
 	}
 }
 
