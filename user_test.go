@@ -9,6 +9,7 @@ import (
 const (
 	getUsersJSON       = `[{"id":1,"name":"","login":"admin","email":"admin@localhost","avatarUrl":"/avatar/46d229b033af06a191ff2267bca9ae56","isAdmin":true,"lastSeenAt":"2018-06-28T14:42:24Z","lastSeenAtAge":"\u003c 1m"}]`
 	getUserJSON        = `{"id": 1, "email": "user@mygraf.com", "name": "admin", "login": "admin", "theme": "light", "orgId": 1, "isGrafanaAdmin": true}`
+	updateUserJSON     = `{"message":"User updated"}`
 	getUserByEmailJSON = `{"id":1,"email":"admin@localhost","name":"","login":"admin","theme":"","orgId":1,"isGrafanaAdmin":true}`
 )
 
@@ -19,7 +20,7 @@ func TestUsers(t *testing.T) {
 	}
 
 	if len(resp) == 0 {
-		t.Error("Not correctly parsing returned users.")
+		t.Error("Users should not be empty.")
 	}
 }
 
@@ -43,6 +44,22 @@ func TestGetUser(t *testing.T) {
 	}
 	if resp.Id != user.Id {
 		t.Error("Not correctly parsing returned user.")
+	}
+}
+
+func TestUpdateUser(t *testing.T) {
+	server, client := gapiTestTools(200, updateUserJSON)
+	defer server.Close()
+
+	userUpdate := UserUpdate{
+		Email: "admin@localhost",
+		Name:  "",
+		Login: "admin",
+	}
+
+	err := client.UpdateUser(1, userUpdate)
+	if err != nil {
+		t.Error(err)
 	}
 }
 

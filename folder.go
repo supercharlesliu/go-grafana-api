@@ -133,15 +133,8 @@ func (c *Client) GetFolderPermission(id string) ([]*FolderPermission, error) {
 	if err != nil {
 		return permissionList, err
 	}
-	resp, err := c.Do(req)
-	if err != nil {
-		return permissionList, err
-	}
-	if resp.StatusCode != 200 {
-		return permissionList, errors.New(resp.Status)
-	}
 
-	data, err := ioutil.ReadAll(resp.Body)
+	data, err := c.sendRequest(req)
 	if err != nil {
 		return permissionList, err
 	}

@@ -27,7 +27,7 @@ test-in-docker:
 		--link $$GRAFANA_CONTAINER_ID:grafana \
 		--workdir /go/src/$(PKG_NAME) \
 		-e "GRAFANA_AUTH=admin:$(GRAFANA_ADMIN_PWD)" \
-		-e "GRAFANA_URL=http://grafana:3000" "golang:$(GO_VERSION)" go test
+		-e "GRAFANA_URL=http://grafana:3000" "golang:$(GO_VERSION)" go test $PKG_NAME
 
 fmt:
 	gofmt -w $(GOFMT_FILES)

@@ -12,7 +12,7 @@ func TestMain(m *testing.M) {
 	grafanaAuth := os.Getenv("GRAFANA_AUTH")
 	grafanaUrl := os.Getenv("GRAFANA_URL")
 	if grafanaAuth == "" {
-		grafanaAuth = "admin:pwd4test"
+		grafanaAuth = "admin:admin"
 	}
 	if grafanaUrl == "" {
 		grafanaUrl = "http://localhost:3000"

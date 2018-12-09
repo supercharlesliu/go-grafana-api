@@ -124,6 +124,7 @@ const (
   }
 ]
 	`
+	updateFolderPermissionJSON = `{"message":"Folder permissions updated"}`
 )
 
 func TestFolders(t *testing.T) {
@@ -209,5 +210,20 @@ func TestGetFolderPermission(t *testing.T) {
 
 	if len(permList) == 0 {
 		t.Errorf("Error Response")
+	}
+}
+
+func TestUpdateFolderPermission(t *testing.T) {
+	server, client := gapiTestTools(200, updateFolderPermissionJSON)
+	defer server.Close()
+
+	list := make([]*FolderPermission, 0)
+	list = append(list, &FolderPermission{
+		Role:       "Viewer",
+		Permission: PermissionView,
+	})
+	err := client.UpdateFolderPermission("nErXDvCkzz", list)
+	if err != nil {
+		t.Error(err)
 	}
 }
