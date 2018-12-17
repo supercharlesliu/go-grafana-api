@@ -26,8 +26,8 @@ type DataSource struct {
 	BasicAuthUser     string `json:"basicAuthUser,omitempty"`
 	BasicAuthPassword string `json:"basicAuthPassword,omitempty"`
 
-	JSONData       JSONData       `json:"jsonData,omitempty"`
-	SecureJSONData SecureJSONData `json:"secureJsonData,omitempty"`
+	JSONData       map[string]interface{} `json:"jsonData,omitempty"`
+	SecureJSONData SecureJSONData         `json:"secureJsonData,omitempty"`
 }
 
 // JSONData is a representation of the datasource `jsonData` property
